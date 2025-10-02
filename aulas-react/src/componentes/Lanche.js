@@ -7,9 +7,11 @@ function Lanche({nome, preco, descricao, remover}){
         <>
             <div className="conteiner">
                 <h2 className="titulo">{nome}</h2>
-                <p>Preço: {formatadorBRL.format(preco)}</p>
-                <p className="desc-p">Descrição: <span className="descricao">{descricao}</span>
-                </p>
+                <div>
+                    <p>Preço: {formatadorBRL.format(preco)}</p>
+                    <p className="desc-p">Descrição: <span className="descricao">{descricao}</span>
+                    </p>
+                </div>
                 <button onClick={remover}>Remover</button>
             </div>
         </>
