@@ -122,6 +122,37 @@ Declarando props usando desestruturação de objeto:
 OBS: O código js com variáveis e funções é inserido no jsx dentro de chaves.
 
 
+Contenção de componentes -> permite inserir componentes ou html dentro de outro
+   			    componente envolvendo-os entre sua abertura e fechamento. 
+  			    Os filhos evolvidos são inseridos e organizados no pai por meio da propriedade 
+  			    props.children, que é a lista de componentes filhos. Ex:
+No ComponentePai.js:
+
+	export default function ComponentePai(props){
+        	return <div>{props.children}</div>; // insere todos os filhos na ordem do jsx  	
+   	}
+
+
+No App.js:
+
+import ComponentePai from "./componentes/ComponentePai";
+import Filho1 from "./componentes/Filho1";
+import Filho2 from "./componentes/Filho2";
+import Filho3 from "./componentes/Filho3";
+
+	export default function App(){
+   		<ComponentePai>
+        		<Filho1/>
+        		<Filho2/>
+        		<Filho3/>
+   		</ComponentePai>
+	}
+
+
+props.children[0] -> insere o primeiro filho da ordem do jsx
+props.children[props.children.length-1] -> insere o último filho da ordem do jsx
+
+
 Desestruturação de objeto:
 
 	const pessoa = {nome:"Maria", idade: 30};
@@ -148,21 +179,21 @@ import...from... -> importa um recurso no arquivo de trabalho. Ex: import {funca
 
 Estilização de componentes
 
-estilo inline -> os estilos são passados por um objeto literal com dados propriedade-valor na propriedade style do componente. 
+estilo inline -> os estilos são passados por um objeto literal com dados chave-valor na propriedade style do componente. 
 As propriedades css seguem o formato camelCase e os valores de propriedade são strings.
 Ex:
 	const estiloC2 = {textAlign: "center", backgroundColor: "#f00"};
 
-	<Componente1/ style= {{textAlign: "center", backgroundColor: "#fff"}}>
+	<Componente1 style= {{textAlign: "center", backgroundColor: "#fff"}}/>
 	<Componente2 style= {estiloC2}/>
 
 estilo externo -> os estilos são passados por um arquivo de folha de estilo importado no script. Ao importar, é
 possível acessar as classes pelo atributo className do componente ou tag HTML.
 Ex:
-	import moduloCss from "./estilos/estilo1.css";  // importa o css como um módulo com as classes e propriedades css
+	import moduloCss from "./estilos/estilo1.css";  // importa o css como um módulo
 	import "./estilos/estilo2.css";		     	// importa o css globalmente
 	
-	<Componente1 className= {"classe1"}/>		ou	<Componente1 className= {moduloCss.classe1}/>
+	<Componente1 className= {"classe1"}/> ou <Componente1 className= {moduloCss.classe1}/>
 	<Componente2 className= {"classe1 classe2"}/> //o espaço adiciona mais de uma classe ao componente.
 
 OBS: Só é possível usar a síntaxe moduloCss.classe1 se a folha de estilo for importada como um módulo dentro do script.
@@ -184,7 +215,7 @@ Ex:
 	import {useState} from 'react';
 	
 	export default function Componente(){
-		const [state, setState] = useState(0);
+		const [state, setState] = useState(0); // estado com valor incial 0
 		setState(state + 1) // atualiza o valor do state e re-renderiza o componente
 	}
 
@@ -214,6 +245,11 @@ useEffect(callback, listaDependencias) -> executa um efeito colateral (operaçã
 			                Se a lista não for passada, o efeito será executado quando for o componente for renderizado e 
 					quando qualquer estado do componente for atualizado.
 
+useEffect(() => ...)                       -> executa o efeito toda a vez que o componente é renderizado.
+useEffect(() => ..., []) 		   -> executa o efeito na primeira vez que o componente é renderizado.
+useEffect(()=> ..., [dep1, dep2, ...]) 	   -> executa o efeito quando qualquer dependência da lista for atualizada. 
+					      A dependência pode ser uma variável ou estado.
+
 Ex: 
 	import {useEffect, useState} from 'react';
 	
@@ -228,3 +264,4 @@ Ex:
 		useEffect(()=> console.log("Contador atualizado!" + contador), [contador]); // executado quando o contador for atualizado.
 		
 	}
+
