@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; // Aula 12
 
 function MensagemHora(props){
     const msg = {
@@ -8,7 +8,6 @@ function MensagemHora(props){
     } 
 
     let hora, mensagem = "";
-
     props.hora? hora = props.hora : hora = new Date().getHours(); //se não for passado a hora, ela pega a hora do dispositivo
 
     if(hora > 0 && hora <= 4){

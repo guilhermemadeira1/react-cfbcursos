@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; // Aula 05
 
 function Footer(){
     return (

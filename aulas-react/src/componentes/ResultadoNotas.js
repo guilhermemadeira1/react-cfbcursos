@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react";  // Aulas 16-17
 
 function ResultadoNotas({notas}){
     let soma = 0;
@@ -9,7 +9,7 @@ function ResultadoNotas({notas}){
             <div>
                 <p><strong>Soma das notas: </strong> {soma}</p>
                 <p><strong>Média das notas: </strong>{media}</p>
-                <p><strong>Maior nota: </strong>{notas.sort((a, b) => b - a)[0]}</p> 
+                <p><strong>Maior nota: </strong>{notas.sort((a,b) => b - a)[0]}</p> 
                  <p><strong>Menor nota: </strong>{notas.sort((a,b) => a - b)[0]}</p>              
                 <p><strong>Resultado: </strong> {media >= 7? "Aprovado": "Reprovado"}</p>
                 <br/>

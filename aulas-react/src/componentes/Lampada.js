@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; // Aula 11
 import lampadaOn from "../componentes/imagens/lampada-on.png";
 import lampadaOff from "../componentes/imagens/lampada-off.png";
 import "../estilos/div-centralizada.css";

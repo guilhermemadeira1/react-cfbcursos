@@ -28,7 +28,6 @@ function App(){
                 <button style={btn} onClick={()=> setNum(num*2)}>Dobrar</button>
                 <button style={btn} onClick={()=> setNum(0)}>Zerar</button>
             </div>
-          
         </>
     );
 }

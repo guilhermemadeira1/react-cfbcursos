@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; // Aula 16-17
 
 function EntradaNota({num, nota, setNota}){
     return(

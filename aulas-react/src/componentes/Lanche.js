@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react';  // Aula 13
 import "../estilos/Lanche.css";
 
 function Lanche({nome, preco, descricao, remover}){

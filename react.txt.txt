@@ -34,7 +34,6 @@ package.json		-> contém metadados do app como nome do app, autor, versão do ap
 package-lock.json	-> trava a estrutura dos pacotes, versões de dependência específicas do projeto para garantir estabilidade e padronização.
 readme.md		-> arquivo markdown com a documentação do projeto, apresentando e especificando restrições de instalação, modificação e uso.
 
-
 Executando o script do app no terminal powershell do vscode
 
 1 - abrir o poweshell do windows como administrador
@@ -54,6 +53,9 @@ npm install <pacote>		-> instala uma nova dependência do projeto em node_module
 
 
 Criando componentes
+
+Obrigatório: O componente deve ser exportado como default num arquivo js/jsx individual. 
+Boa prática: O componente deve ter o mesmo nome do arquivo.
 
 componente funcional (mais usado)
 
@@ -75,11 +77,32 @@ componente de classe
 	}
 	export default ComponenteClasse;
 
-Obrigatório: O componente deve ser exportado como default num arquivo js/jsx individual. 
-Boa prática: O componente deve ter o mesmo nome do arquivo.
+Componentes de classe extendem a classe Componente para herder os métodos para
+criar componentes e gerenciar estado seu e ciclo de vida. Características:
 
-OBS: Todo componente só pode retornar um componente ou elemento html. Usa-se <></> para retornar mais de um no componente. 
-Ex:
+    Usam uma sintaxe mais antiga de componentes React e não suportam hooks modernos.
+
+    Os states e props são inicializados no construtor do componente.
+
+    super(props) -> chama o método construtor da classe Component para incializar as props.
+
+    Props, estadoos e métodos do componente são acessados usando this. Ex: this.metodo(), this.state.estado e this.props.prop
+
+    O state é pasado como um objeto {key: value, ...} em this.state e atualizado pela função setState({key: value, ...});
+
+    OBS: Tecnicamente é possível atualizar o valor do state diretamente pela propriedade state.propriedade, mas isso gerará comportamentos inesperados no componente e não será renderizado ao mudar o valor.
+
+    O ciclo de vida não é gerenciado por hooks, e sim sobrescrevendo os métodos de Component que executam uma
+    operação em determinadas situações:
+
+    render() -> retorna o jsx do componente.
+    componentDidMount() -> executado quando o componente é inserido no virtual DOM. Equivalente ao useEffect(()=> ..., [])
+    componentDidUpdate() -> executado quando o estado é atualizado. Equivalente ao useEffect(()=> ...)
+    componentWillUnmound() -> executado quando o componente estiver prestes a ser removido do virtual DOM.
+
+
+Composição de componentes funcionais
+
 	function App(){
 		return(
 		    <>
@@ -90,6 +113,8 @@ Ex:
 		);
 	}
 	export default App;
+
+OBS: Todo componente só pode retornar um componente ou elemento html. Usa-se <></> para retornar mais de um no componente. 
 
 Propriedades de componentes (props) -> são passadas como um objeto com dados chave e valor
 
@@ -151,6 +176,45 @@ import Filho3 from "./componentes/Filho3";
 
 props.children[0] -> insere o primeiro filho da ordem do jsx
 props.children[props.children.length-1] -> insere o último filho da ordem do jsx
+
+
+Ciclo de vida dos componentes
+
+Montagem (Mounting)        -> Quando o componente é renderizado pela primeira vez no virtual DOM.
+Atualização (Update)       -> Quando algum estado é atualizado e o componente é re-renderizado.
+Desmontagem (Unmounting)   -> Quando o compontes é removido do virtual DOM dinamicamente.
+
+Tratamento de erro/error bundary (opcional) -> Error boundary usa um componente que captura e trata erros de componentes filhos
+e sobrescreve os métodos getDeviredStateFromError e componentDidCatch.
+
+Em componentes funcionais, o react usa hooks como useEffect para gerenciar o ciclo de vida.
+
+Em componentes de classe, o react usa um conjunto de métodos:
+
+Mounting:
+
+1º constructor()                      -> instancia o componente e recebe as props como parâmetros
+2º static getDerivedStateFromProps()  -> sincroniza os estados passados via props
+3º render()                           -> retorna o jsx renderizado pela aplicação
+4º componentDidMount()                -> executa uma operação depois de ser renderizado 
+
+Update:
+
+1º static getDerivedStateFromProps()   -> sincroniza os estados passados via props
+2º shouldComponentUpdate()             -> testa a condição de renderização
+3º render()                            -> renderiza novamente
+4º getSnapshotBeforeUpdate()           -> retorna os estados e props anteriores para o componentDidUpdate 
+5º componentDidUpdate()                -> executa uma operação depois de atualizado
+
+Unmounting:
+
+1º componentWillUnmount()  -> executa uma operação antes de ser desmontado.
+
+
+Error boundary:
+
+1º static getDeviredStateFromError()    -> atualiza o estado que gerencia o tratamento do erro
+2º componentDidCatch(error, erroInfo)   -> executa o tratamento do erro
 
 
 Desestruturação de objeto:
