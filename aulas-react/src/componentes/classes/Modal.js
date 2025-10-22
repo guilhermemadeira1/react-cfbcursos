@@ -1,7 +1,6 @@
 import React from "react";
 import "./ProdutoCard";
 import "../../estilos/div-centralizada.css";
-import ProdutoCard from "./ProdutoCard";
 
 export default class Modal extends React.Component{ // aula 26
     constructor(props){

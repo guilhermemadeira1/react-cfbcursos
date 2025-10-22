@@ -114,7 +114,8 @@ Composição de componentes funcionais
 	}
 	export default App;
 
-OBS: Todo componente só pode retornar um componente ou elemento html. Usa-se <></> para retornar mais de um no componente. 
+OBS: Todo componente só pode retornar um componente ou elemento html. Usa-se React Fragment <></> para envolver
+ mais de um elemento JSX no componente. 
 
 Propriedades de componentes (props) -> são passadas como um objeto com dados chave e valor
 
@@ -241,6 +242,10 @@ export default 	 -> define um recurso como a exportação padrão de um arquivo.
 import...from... -> importa um recurso no arquivo de trabalho. Ex: import {funcaoUtilitaria} from "./utilitarios";
 							       Ex: import MeuComponente from "./componentes/Componente";
 
+OBS: O react não permite fetch de arquivos dentro na pasta src, só na pasta public. Só podem ser importados na pasta src.
+
+OBS: Os arquivos da pasta public são importados com caminho raiz "/arquivo" e os que estao no mesmo diretorio do codigo fonte "./arquivo".
+
 Estilização de componentes
 
 estilo inline -> os estilos são passados por um objeto literal com dados chave-valor na propriedade style do componente. 
@@ -313,6 +318,7 @@ useEffect(() => ...)                       -> executa o efeito toda a vez que o 
 useEffect(() => ..., []) 		   -> executa o efeito na primeira vez que o componente é renderizado.
 useEffect(()=> ..., [dep1, dep2, ...]) 	   -> executa o efeito quando qualquer dependência da lista for atualizada. 
 					      A dependência pode ser uma variável ou estado.
+useEffect(()=> {return ()=> ...}, [])      -> executa o efeito antes do componente ser desmontado.
 
 Ex: 
 	import {useEffect, useState} from 'react';

@@ -9,6 +9,9 @@ function App(){
         console.log(`Contador atualizado para ${contador}`);
         document.title = `Contador: ${contador}`
     }, [contador]);
+    useEffect(()=> {
+        return ()=> console.log("O app será desmontado")}, 
+    []);
 
     return (
         <>
@@ -26,4 +29,6 @@ export default App;
 
   useEffect(()=> ..., [dep1, dep2, ...]) -> executa o efeito quando uma dependência da lista for atualizado.
   A dependência pode ser um estado ou uma variável.
+
+  useEffect(()=>{return ()=> ...}, [])  -> executa o efeito antes do componente ser desmontado.
 */
